@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public enum GameState { Ready, Playing, Ended};
+public enum GameState { Ready, Playing, Ended };
 
 public class GameManager : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
         bool action = Input.GetKeyDown("space") || Input.GetMouseButtonDown(0);
 
         HandleJump(action);
-        HandleCollisions()
+        HandleCollisions();
         UpdateParallax();
         UpdateGameState(action);
         HandleExit();
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     void HandleJump(bool action)
     {
-        if (gameState == GameState.Playing && action)
+        if (gameState == GameState.Playing && action && PlayerManager.Instance.grounded)
         {
             PlayerManager.Instance.SetAnimation("PlayerJump");
         }
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         if (gameState == GameState.Ready && action)
         {
             gameState = GameState.Playing;
-            
+
             uiReady.SetActive(false);
             uiScore.SetActive(true);
 
