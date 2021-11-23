@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance { get; private set; }
 
     public Animator animator;
+    public bool enemyCollision = false;
 
     void Awake()
     {
@@ -16,6 +17,11 @@ public class PlayerManager : MonoBehaviour
     public void SetAnimation(string name)
     {
         animator.Play(name);
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        enemyCollision = true;
     }
 
 }

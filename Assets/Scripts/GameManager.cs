@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum GameState { Ready, Playing};
+public enum GameState { Ready, Playing, Ended};
 
 public class GameManager : MonoBehaviour
 {
@@ -26,6 +26,16 @@ public class GameManager : MonoBehaviour
         if (gameState == GameState.Playing && action)
         {
             PlayerManager.Instance.SetAnimation("PlayerJump");
+        }
+    }
+
+    void HandleCollisions()
+    {
+        if (gameState == GameState.Playing && PlayerManager.Instance.enemyCollision)
+        {
+            gameState = GameState.Ended;
+            PlayerManager.Instance.SetAnimation("PlayerDie");
+            SpawnManager.Instance.StopSpawn();
         }
     }
 
