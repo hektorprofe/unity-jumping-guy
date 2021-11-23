@@ -14,13 +14,24 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        bool action = Input.GetKeyDown("space") || Input.GetMouseButtonDown(0);
+
+        HandleJump(action);
         UpdateParallax();
-        UpdateGameState();
+        UpdateGameState(action);
     }
 
-    void UpdateGameState()
+    void HandleJump(bool action)
     {
-        if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
+        if (gameState == GameState.Playing && action)
+        {
+            PlayerManager.Instance.SetAnimation("PlayerJump");
+        }
+    }
+
+    void UpdateGameState(bool action)
+    {
+        if (gameState == GameState.Ready && action)
         {
             gameState = GameState.Playing;
             uiReady.SetActive(false);
