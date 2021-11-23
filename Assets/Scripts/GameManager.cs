@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
             uiReady.SetActive(false);
 
             PlayerManager.Instance.SetAnimation("PlayerRun");
+            SpawnManager.Instance.StartSpawn();
         }
     }
 
