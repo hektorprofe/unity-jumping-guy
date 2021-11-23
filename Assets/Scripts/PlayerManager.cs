@@ -21,7 +21,14 @@ public class PlayerManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        enemyCollision = true;
+        if (collider.tag == "Enemy")
+        {
+            enemyCollision = true;
+            GetComponent<BoxCollider2D>().enabled = false;
+        }
+        else if (collider.tag == "Points") { 
+            ScoreManager.Instance.IncreasePoints();
+        }
     }
 
 }
