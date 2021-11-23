@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
             gameState = GameState.Ended;
             PlayerManager.Instance.SetAnimation("PlayerDie");
             SpawnManager.Instance.StopSpawn();
+            SpeedManager.Instance.ResetSpeed();
         }
     }
 
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
 
             PlayerManager.Instance.SetAnimation("PlayerRun");
             SpawnManager.Instance.StartSpawn();
+            SpeedManager.Instance.StartSpeedIncrease();
         }
 
         else if (gameState == GameState.Ended && action)
