@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
         {
             gameState = GameState.Playing;
             uiReady.SetActive(false);
+
+            PlayerManager.Instance.SetAnimation("PlayerRun");
         }
     }
 
