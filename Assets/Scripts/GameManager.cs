@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum GameState { Ready, Playing, Ended};
 
@@ -17,8 +18,10 @@ public class GameManager : MonoBehaviour
         bool action = Input.GetKeyDown("space") || Input.GetMouseButtonDown(0);
 
         HandleJump(action);
+        HandleCollisions()
         UpdateParallax();
         UpdateGameState(action);
+        HandleExit();
     }
 
     void HandleJump(bool action)
@@ -49,6 +52,11 @@ public class GameManager : MonoBehaviour
             PlayerManager.Instance.SetAnimation("PlayerRun");
             SpawnManager.Instance.StartSpawn();
         }
+
+        else if (gameState == GameState.Ended && action)
+        {
+            HandleRestart();
+        }
     }
 
     void UpdateParallax()
@@ -59,5 +67,15 @@ public class GameManager : MonoBehaviour
             background.uvRect = new Rect(background.uvRect.x + finalSpeed, 0f, 1f, 1f);
             platform.uvRect = new Rect(platform.uvRect.x + finalSpeed * 4, 0f, 1f, 1f);
         }
+    }
+
+    void HandleRestart()
+    {
+        SceneManager.LoadScene("Main");
+    }
+
+    void HandleExit() 
+    {
+        if (Input.GetKeyDown("escape")) Application.Quit();
     }
 }
